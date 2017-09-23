@@ -6,12 +6,31 @@
 {% block body %}
     <div class="panel panel-default">
         <div class="panel-body">
+            <form action="?page=1" method="POST">
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class="col-md-2">
+                        <label class="control-label">{{ field.label }}</label>
+                    </div>
+                    <div class="col-md-3">
+                        {{ field }}
+                    </div>
+                {% endfor %}
+                <div class="col-md-2">
+                    <button class="btn btn-primary">Search</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-body">
             <table class="table table-striped">
                 <thead>
-                    <th width="35%"><a href="?sort=artist&page={{ page }}">Artist {%if sort == 'artist' %}<span class="caret"></span>{% endif %}</a></th>
-                    <th width="25%"><a href="?sort=title&page={{ page }}">Title {%if sort == 'title' %}<span class="caret"></span>{% endif %}</a></th>
-                    <th width="20%"><a href="?sort=label&page={{ page }}">Label {%if sort == 'label' %}<span class="caret"></span>{% endif %}</a></th>
-                    <th width="10%"><a href="?sort=catalog_no&page={{ page }}">Catalog # {%if sort == 'catalog_no' %}<span class="caret"></span>{% endif %}</a></th>
+                    <th width="35%"><a href="?sort=artist&page={{ page }}&search={{ search }}&search_by={{ search_by }}">Artist {%if sort == 'artist' %}<span class="caret"></span>{% endif %}</a></th>
+                    <th width="25%"><a href="?sort=title&page={{ page }}&search={{ search }}&search_by={{ search_by }}">Title {%if sort == 'title' %}<span class="caret"></span>{% endif %}</a></th>
+                    <th width="20%"><a href="?sort=label&page={{ page }}&search={{ search }}&search_by={{ search_by }}">Label {%if sort == 'label' %}<span class="caret"></span>{% endif %}</a></th>
+                    <th width="10%"><a href="?sort=catalog_no&page={{ page }}&search={{ search }}&search_by={{ search_by }}">Catalog # {%if sort == 'catalog_no' %}<span class="caret"></span>{% endif %}</a></th>
                 </thead>
                 <tbody>
                     {% if records %}
@@ -33,33 +52,5 @@
         </div>
     </div>
 
-    {% if records.has_other_pages %}
-        <div class="text-center">
-            <ul class="pagination">
-                {% if records.has_previous %}
-                    <li><a href="?page={{ blogs.previous_page_number }}">&laquo;</a></li>
-                {% else %}
-                    <li class="disabled"><span>&laquo;</span></li>
-                {% endif %}
-
-                {% for i in page_range %}
-                    {% if records.number == i %}
-                        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
-                    {% else %}
-                        {% if i == '...' %}
-                            <li><a class="disabled">{{ i }}</a></li>
-                        {% else %}
-                            <li><a href="?page={{ i }}">{{ i }}</a></li>
-                        {% endif %}
-                        {% endif %}
-                {% endfor %}
-
-                {% if records.has_next %}
-                    <li><a href="?page={{ blogs.next_page_number }}">&raquo;</a></li>
-                {% else %}
-                    <li class="disabled"><span>&raquo;</span></li>
-                {% endif %}
-            </ul>
-        </div>
-    {% endif %}
+    {% include 'records/partials/pagination.html' %}
 {% endblock %}
