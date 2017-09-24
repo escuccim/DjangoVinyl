@@ -30,7 +30,9 @@ def Index(request):
             all_records = Record.objects.filter(label__icontains=search)
         else:
             all_records = Record.objects.filter(catalog_no__icontains=search)
-
+    else:
+        all_records = Record.objects.all()
+        
     all_records = all_records.order_by(sort)
 
     paginator = Paginator(all_records, 20)
