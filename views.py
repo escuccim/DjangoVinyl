@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-from django.shortcuts import render
-from django.shortcuts import render, get_object_or_404, redirect, HttpResponse
+from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import Record
 from .forms import RecordSearchForm
@@ -32,7 +31,7 @@ def Index(request):
             all_records = Record.objects.filter(catalog_no__icontains=search)
     else:
         all_records = Record.objects.all()
-        
+
     all_records = all_records.order_by(sort)
 
     paginator = Paginator(all_records, 20)

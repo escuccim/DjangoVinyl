@@ -1,7 +1,4 @@
 from  django import forms
-from .models import Record
-from django.contrib.auth.models import User
-from django.contrib.admin import widgets
 
 class BootstrapForm(forms.Form):
     def __init__(self, *args, **kwargs):
