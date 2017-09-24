@@ -62,3 +62,8 @@ def Index(request):
         page_range = range(1,paginator.num_pages)
 
     return render(request, 'records/index.html', {'records': records, 'page_range': page_range, 'sort' : sort, 'page' : page, 'form' : form, 'search' : search, 'search_by' : search_by})
+
+
+def Show(request, pk, slug):
+    record = get_object_or_404(Record, pk=pk)
+    return render(request, 'records/show.html', { 'record': record })

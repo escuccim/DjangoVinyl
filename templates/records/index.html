@@ -37,7 +37,7 @@
                         {% for record in records %}
                             <tr>
                                 <td>{{ record.artist }}</td>
-                                <td>{{ record.title }}</td>
+                                <td><a href="{% url 'records:show' record.pk record.title_slug %}">{{ record.title }}</a></td>
                                 <td>{{ record.label }}</td>
                                 <td>{{ record.catalog_no }}</td>
                             </tr>

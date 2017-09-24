@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}Record Information - {{ record.artist }} - {{ record.title }}{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <div class="panel-title"><h3>Record Information</h3></div>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <b>Artist : </b>
+                                </div>
+                                <div class="col-md-9">
+                                    {{ record.artist }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <b>Title : </b>
+                                </div>
+                                <div class="col-md-9">
+                                    {{ record.title }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <b>Label : </b>
+                                </div>
+                                <div class="col-md-9">
+                                    {{ record.label }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <b>Catalog No : </b>
+                                </div>
+                                <div class="col-md-9">
+                                    {{ record.catalog_no }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <b>Discogs Link : </b>
+                                </div>
+                                <div class="col-md-9">
+                                    <a href="http://discogs.com{{ record.discogs}}">{{ record.discogs }}</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            {% if record.thumb %}
+                                <img src="http://www.ericscuccimarra.com/{{ record.thumb }}" alt="{{ record.artist }} - {{ record.title }}" style="max-height: 100px;">
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

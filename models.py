@@ -2,6 +2,8 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from django.utils.text import slugify
+
 
 class Record(models.Model):
     artist = models.CharField(max_length=128)
@@ -16,6 +18,9 @@ class Record(models.Model):
 
     def __unicode__(self):
         return self.artist + ' - ' + self.title + ' - ' + self.label
+
+    def title_slug(self):
+        return slugify(self.title)
 
     class Meta:
         db_table = 'records_new'
