@@ -2,6 +2,7 @@
 {% load i18n %}
 
 {% block title %}Record Information - {{ record.artist }} - {{ record.title }}{% endblock %}
+{% block meta_description %}{% trans "Information on the record : " %} {{ record.artist }} - {{ record.title }} - {{ record.label}} {% endblock %}
 
 {% block body %}
     <div class="row">
