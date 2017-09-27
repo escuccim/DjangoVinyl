@@ -23,6 +23,7 @@ class Record(models.Model):
         return slugify(self.title)
 
     class Meta:
+        app_label = 'recordcollection'
         db_table = 'records_new'
         get_latest_by = "updated_at"
         ordering = ['label','artist','title']
