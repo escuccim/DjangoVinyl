@@ -2,10 +2,11 @@
 from __future__ import unicode_literals
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.http import JsonResponse
 from .models import Record
 from .forms import RecordSearchForm
 
-# Create your views here.
+
 def Index(request):
     sort = request.GET.get('sort', 'artist')
     search = request.GET.get('search')
@@ -68,3 +69,31 @@ def Index(request):
 def Show(request, pk, slug):
     record = get_object_or_404(Record, pk=pk)
     return render(request, 'records/show.html', { 'record': record })
+
+
+def Api(request):
+    sort = request.GET.get('sort', 'label')
+    artist = request.GET.get('artist', None)
+    title = request.GET.get('title', None)
+    label = request.GET.get('label', None)
+    catalog_no = request.GET.get('catalog_no', None)
+
+    records = Record.objects.all()
+
+    if artist:
+        records = records.filter(artist__icontains=artist)
+    if title:
+        records = records.filter(title__icontains=title)
+    if label:
+        records = records.filter(label__icontains=label)
+    if catalog_no:
+        records = records.filter(catalog_no__icontains=catalog_no)
+
+    records = records.order_by(sort).values('id','title', 'artist', 'label', 'catalog_no', 'discogs', 'thumb')
+    record_list = list(records)
+
+    if len(record_list):
+        return JsonResponse(record_list, safe=False)
+    else:
+        records = { "message" : "no matching records found" }
+        return JsonResponse(records, status=404)
