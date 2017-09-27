@@ -97,3 +97,6 @@ def Api(request):
     else:
         records = { "message" : "no matching records found" }
         return JsonResponse(records, status=404)
+
+def ApiDetails(request):
+    return render(request, 'records/api.html', {})
