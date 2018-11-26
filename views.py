@@ -59,7 +59,7 @@ def Index(request):
         else:
             page_range = range(1,8)
             page_range = page_range + ['...']
-            page_range = page_range + range(paginator.num_pages - 1, paginator.num_pages + 1)
+            page_range = page_range + list(range(paginator.num_pages - 1, paginator.num_pages + 1))
     else:
         page_range = range(1,paginator.num_pages)
 
