@@ -49,13 +49,13 @@ def Index(request):
         if page_int >= 7 and page_int <= paginator.num_pages - 7:
             page_range = range(1,3)
             page_range = page_range + ['...']
-            page_range = page_range + range(page_int-3, page_int+3)
+            page_range = page_range + list(range(page_int-3, page_int+3))
             page_range = page_range + ['...']
-            page_range = page_range + range(paginator.num_pages-1,paginator.num_pages+1)
+            page_range = page_range + list(range(paginator.num_pages-1,paginator.num_pages+1))
         elif page_int >= records.paginator.num_pages - 7:
             page_range = range(1, 3)
             page_range = page_range + ['...']
-            page_range = page_range + range(paginator.num_pages - 7, paginator.num_pages)
+            page_range = page_range + list(range(paginator.num_pages - 7, paginator.num_pages))
         else:
             page_range = range(1,8)
             page_range = page_range + ['...']
